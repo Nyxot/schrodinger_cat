@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Vue JS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jgthms/minireset.css/master/minireset.css">
+  <link rel="stylesheet" href="debug.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <style>
+
+    /* resets */
+    * { color: inherit; }
+    input { font: inherit; border: unset; background: unset; }
+    input:focus { outline: unset; }
+
+    :root {
+      font: 1rem/1.175 "BlinkMacSystemFont", -apple-system, "Roboto", sans-seri;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column; justify-content: center; align-items: center;
+      width: 100vw; height: 100vh;
+      font-weight: 900; font-size: 8rem;
+      color: hsl(0, 0%, 100%);
+      background: hsl(240, 100%, 67%);
+    }
+
+    input { text-align: center; }
+
+    img {
+      width: 8rem; height: 8rem;
+      vertical-align: calc(-0.12109375em);
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <p
+    v-html="wizard + ' ' + (
+      wizard == harry    ? hedwig      :
+      wizard == ron      ? scabbers    :
+      wizard == hermione ? crookshanks : ''
+    )"></p> -->
+    <!-- <template v-if="true">
+			<p v-html="harry    + ' ' + hedwig     "></p>
+			<p v-html="ron      + ' ' + scabbers   "></p>
+		  <p v-html="hermione + ' ' + crookshanks"></p>
+    </template> -->
+    <p
+			v-for="wizard in wizards()"
+			v-html="wizard.name + ' ' + wizard.pet"
+		></p>
+  </div>
+
+  <script>
+    "use strict"
+
+    function emojify(name){
+      let out =`<img src="emojis/${name}.png">`;
+      return out;
+    }
+
+    let app = new Vue({
+      el: '#app',
+      data:{
+        wizard      : "",
+        harry       : emojify("harry"      ),
+        hedwig      : emojify("hedwig"     ),
+        ron         : emojify("ron"        ),
+        scabbers    : emojify("scabbers"   ),
+        hermione    : emojify("hermione"   ),
+        crookshanks : emojify("crookshanks")
+      },
+      methods:{
+        wizards(){
+          return [
+            { name: this.harry   , pet: this.hedwig      },
+            { name: this.ron     , pet: this.scabbers    },
+            { name: this.hermione, pet: this.crookshanks }
+          ]
+        }
+      }
+    });
+
+    app.wizard = app.harry
+  </script>
+</body>
+</html>
